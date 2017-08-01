@@ -7,33 +7,41 @@
         * {
             font-family: 'Artifika', serif;
         }
+
         body {
-            color: black;
+            color: white;
             background-color: peachpuff;
         }
+
         h1 {
             font-size: 20px;
         }
+
         li {
             float: left;
         }
+
         .timer {
             margin: 5px;
             font-size: 20px;
         }
+
         .timerRed {
             margin: 5px;
             font-size: 20px;
             color: darkred;
             animation: blinker 1s linear infinite;
         }
+
         @keyframes blinker {
             50% { color: red; }
         }
+
         .tableMap {
             list-style-type: none;
             display: inline-block;
         }
+
         .tableFree {
             box-sizing: border-box;
             width: 200px;
@@ -44,6 +52,7 @@
             background-repeat: no-repeat;
             background-position: center;
         }
+
         .tableOccupied {
             box-sizing: border-box;
             width: 200px;
@@ -54,6 +63,7 @@
             background-repeat: no-repeat;
             background-position: center;
         }
+
         .tableButtonFree {
             background-color: darkgray;
             margin-top: 65px;
@@ -61,6 +71,7 @@
             font-weight: bold;
             width: 150px;
         }
+
         .tableButtonOccupied {
             background-color: red;
             margin-top: 65px;
@@ -84,6 +95,7 @@
         a:hover{
             color:peachpuff;
         }
+
     </style>
 </head>
 
@@ -94,11 +106,14 @@
         else
             return t;
     }
+
     function updateTableTimerView(table, timeInSec) {
         let min = Math.floor(timeInSec / 60);
         let sec = timeInSec % 60;
+
         let timer = table.querySelector("#timer");
         timer.innerHTML = formatTimeXX(min) + ":" + formatTimeXX(sec);
+
         if (timeInSec == 0) {
             // reset timer style to normal
             timer.className = "timer";
@@ -107,42 +122,50 @@
             // switch to the red flashing style
             timer.className = "timerRed";
         }
+
     }
+
     function updateTableTimer(table) {
         let time = table.dataset.time;
         time++;
         table.dataset.time = time;
         updateTableTimerView(table, time);
     }
+
     function toggleTable(button) {
         let table = button.parentNode;
         let clock = table.dataset.clock;
+
         if (isNaN(clock)) {
             // table is currently free, let's occupy it
             table.dataset.time = 0;
             clock = setInterval(updateTableTimer, 1000, table);
+
             table.className = "tableOccupied";
             button.className = "tableButtonOccupied";
             button.value = "Free Up Table";
         }
         else {
             // table is currently occupied, let's free it
+
             // stop the clock
             clearInterval(clock);
             clock = null;
+
             // update the clock on the screen
             updateTableTimerView(table, 0);
+
             // update the widget
             table.className = "tableFree";
             button.className = "tableButtonFree";
             button.value = "Seat Table";
         }
+
         table.dataset.clock = clock;
     }
 </script>
-    <dl>
-        <header><dt align="center">Maars Seating</dt>
-            <a href="file:///Users/sierramoore/Sandbox/maars/menu.html"><dd>Go to Menu</dd></header></a>
+<dl>
+    <header><dt align="center">Maars Seating</dt><a href="menu.html"><dd>Go to Menu</dd></header></a>
 </dl>
 <ul class="tableMap" >
     <li>
